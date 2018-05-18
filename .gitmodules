@@ -1,0 +1,3 @@
+[submodule "tpls/bayesopt"]
+	path = tpls/bayesopt
+	url = https://github.com/ornl-qci/bayesopt

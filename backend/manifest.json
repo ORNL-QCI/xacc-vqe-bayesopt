@@ -1,0 +1,6 @@
+{
+  "bundle.symbolic_name" : "xacc_vqe_bayesopt",
+  "bundle.activator" : true,
+  "bundle.name" : "XACC VQE Bayesian Optimization support",
+  "bundle.description" : "This bundle provides Baysian Optimization VQE support."
+}

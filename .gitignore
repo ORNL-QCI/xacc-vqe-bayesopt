@@ -1,6 +1,3 @@
-# Prerequisites
-*.d
-
 # Compiled Object files
 *.slo
 *.lo
@@ -30,3 +27,10 @@
 *.exe
 *.out
 *.app
+/build/
+/.cproject
+/.project
+/.settings/
+**/.ptp*
+**/fire/*
+compile_commands.json
