@@ -37,16 +37,14 @@ const VQETaskResult BayesOptVQEBackend::minimize(Eigen::VectorXd parameters) {
 	for (int i = 0; i < dim; i++) {lowerBound[i] = -1*pi;upperBound[i] = pi;}
 
 	f.setBoundingBox(lowerBound,upperBound);
+	
 	f.optimize(result);
 
 	r.energy = f.getValueAtMinimum();
-
 	auto resultAngles = f.getFinalResult();
 	const double * data = &(resultAngles.data()[0]);
         r.angles = Eigen::Map<const Eigen::VectorXd>(data, parameters.size());
 	
-	std::cout << "RESULT: " << r.angles << ", " << r.energy << "\n";
-//	xacc::info("BayesOpt VQE Backend finds E = " + std::to_string(r.energy));
 	return r;
 
 }
