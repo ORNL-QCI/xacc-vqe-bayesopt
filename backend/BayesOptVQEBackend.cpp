@@ -17,8 +17,12 @@ const VQETaskResult BayesOptVQEBackend::minimize(Eigen::VectorXd parameters) {
 
 	bayesopt::Parameters par;
 	par = initialize_parameters_to_default();
-	par.n_iterations = 190;
-	par.random_seed = 0;
+	par.n_iterations = xacc::optionExists("bo-n-iter") ? std::stoi(xacc::getOption("bo-n-iter")) : par.n_iterations;
+	par.noise = xacc::optionExists("bo-noise") ? std::stod(xacc::getOption("bo-noise")) : par.noise;
+	par.l_type = xacc::optionExists("bo-learn-type") ? str2learn(xacc::getOption("bo-learn-type").c_str()) : par.l_type;
+	par.n_init_samples = xacc::optionExists("bo-n-init-iter") ? std::stoi(xacc::getOption("bo-n-init-iter")) : par.n_init_samples;
+	par.verbose_level = xacc::optionExists("bo-verbose-level") ? std::stoi(xacc::getOption("bo-verbose-level")) : par.verbose_level;
+	par.epsilon = xacc::optionExists("bo-epsilon") ? std::stod(xacc::getOption("bo-epsilon")) : par.epsilon;
   
 	VQEBayesOptFunction f(par, computeTask, dim);
   
@@ -35,7 +39,14 @@ const VQETaskResult BayesOptVQEBackend::minimize(Eigen::VectorXd parameters) {
 	f.setBoundingBox(lowerBound,upperBound);
 	f.optimize(result);
 
-	xacc::info("BayesOpt VQE Backend finds E = " + std::to_string(0.0));
+	r.energy = f.getValueAtMinimum();
+
+	auto resultAngles = f.getFinalResult();
+	const double * data = &(resultAngles.data()[0]);
+        r.angles = Eigen::Map<const Eigen::VectorXd>(data, parameters.size());
+	
+	std::cout << "RESULT: " << r.angles << ", " << r.energy << "\n";
+//	xacc::info("BayesOpt VQE Backend finds E = " + std::to_string(r.energy));
 	return r;
 
 }

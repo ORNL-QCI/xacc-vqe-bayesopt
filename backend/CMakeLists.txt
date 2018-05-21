@@ -40,7 +40,7 @@ usFunctionGetResourceSource(TARGET ${LIBRARY_NAME} OUT SRC)
 usFunctionGenerateBundleInit(TARGET ${LIBRARY_NAME} OUT SRC)
 
 #link_directories("${CheMPS2_ROOT}/lib64")
-
+include_directories(${CMAKE_SOURCE_DIR}/tpls/bayesopt/include)
 add_library(${LIBRARY_NAME} SHARED ${SRC})
 
 set(_bundle_name xacc_vqe_bayesopt)
@@ -60,13 +60,7 @@ usFunctionEmbedResources(TARGET ${LIBRARY_NAME}
     manifest.json
   )
 
-#add_dependencies(${LIBRARY_NAME} chemps2)
-#link_directories(${CMAKE_BINARY_DIR}/tpls/CheMPS2/CheMPS2)
-if (APPLE)
-	#target_link_libraries(${LIBRARY_NAME} ${XACC_LIBRARIES} ${CMAKE_BINARY_DIR}/tpls/bayesopt/lib/libbayesopt.dylib)
-else()
-target_link_libraries(${LIBRARY_NAME} ${XACC_LIBRARIES} bayesopt)# ${CMAKE_BINARY_DIR}/tpls/bayesopt/lib/libbayesopt.so)
-endif()
+target_link_libraries(${LIBRARY_NAME} ${XACC_LIBRARIES} ${XACCVQE_LIBRARIES} bayesopt)# ${CMAKE_BINARY_DIR}/tpls/bayesopt/lib/libbayesopt.so)
 
 if(APPLE)
    set_target_properties(${LIBRARY_NAME} PROPERTIES INSTALL_RPATH "@loader_path/../lib;@loader_path")

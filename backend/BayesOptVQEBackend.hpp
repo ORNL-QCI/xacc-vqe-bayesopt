@@ -1,5 +1,5 @@
-#ifndef TITUSVQEBACKEND_HPP_
-#define TITUSVQEBACKEND_HPP_
+#ifndef BAYESOPTVQEBACKEND_HPP_
+#define BAYESOPTVQEBACKEND_HPP_
 
 #include "VQEMinimizeTask.hpp"
 #include "unsupported/Eigen/CXX11/Tensor"
@@ -56,6 +56,12 @@ public:
 	virtual std::shared_ptr<options_description> getOptions() {
 		auto desc = std::make_shared<options_description>(
 				"BayesOpt Options");
+		desc->add_options()("bo-n-iter", value<std::string>(), "The number of bayesian optimization iterations.")
+			("bo-noise", value<std::string>(), "The noise/signal ratio")
+			("bo-learn_type", value<std::string>(), "The learning method for kernel hyperparameters")
+			("bo-n-init-iter", value<std::string>(), "The number of initialization function calls.")
+			("bo-verbose-level", value<std::string>(), "Verbose level for bayesian optimization")
+			("bo-epsilon", value<std::string>(), "Epsilon-greedy strategy parameter");
 		return desc;
 	}
 
