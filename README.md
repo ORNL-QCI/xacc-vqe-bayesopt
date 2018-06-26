@@ -4,15 +4,13 @@
 
 Installation
 ------------
-With the XACC framework installed, users can choose a couple ways to install these plugins - using Python/Pip
-```bash
-$ python -m pip install --user .
-```
-or CMake and Make without Python support
+With the XACC framework installed, users can choose a couple ways to install these plugins
+
+Using CMake and Make without Python support
 ```bash
 $ mkdir build && cd build
 $ cmake .. -DXACC_DIR=$HOME/.xacc (or wherever you installed XACC)
-$ make install 
+$ make install
 ```
 or with Python support
 ```bash
