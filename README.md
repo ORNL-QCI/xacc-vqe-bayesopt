@@ -4,7 +4,7 @@
 
 Installation
 ------------
-With the XACC framework installed, users can choose a couple ways to install these plugins
+With the XACC framework installed, users can choose a couple ways to install these plugins:
 
 Using CMake and Make without Python support
 ```bash
