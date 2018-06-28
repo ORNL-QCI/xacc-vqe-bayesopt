@@ -7,6 +7,10 @@ set(CMAKE_CXX_STANDARD 11)
 
 option(VQEBAYESOPT_BUILD_TESTS "Build test programs" OFF)
 
+if (APPLE)
+   set(CMAKE_MACOSX_RPATH 1)
+endif()
+
 find_package(XACC REQUIRED)
 
 set(XACCVQE_DIR ${XACC_DIR})
