@@ -25,7 +25,7 @@ public:
 	       	// Map boost vector to eigen vector
 	    	const double * data = &(xin.data()[0]);
 	    	auto params = Eigen::Map<const Eigen::VectorXd>(data, _dim);
-  
+
 	      	return computeTask->execute(params).energy; //(x-0.3)*(x-0.3) + sin(20*x)*0.2;
 	};
 
@@ -54,14 +54,20 @@ public:
 	 * subclasses to implement.
 	 */
 	virtual std::shared_ptr<options_description> getOptions() {
-		auto desc = std::make_shared<options_description>(
-				"BayesOpt Options");
-		desc->add_options()("bo-n-iter", value<std::string>(), "The number of bayesian optimization iterations.")
+		auto desc = std::make_shared<options_description>("BayesOpt Options");
+		desc->add_options()("bo-n-iter", value<std::string>(), "The number of Bayesian optimization iterations.")
 			("bo-noise", value<std::string>(), "The noise/signal ratio")
 			("bo-learn_type", value<std::string>(), "The learning method for kernel hyperparameters")
 			("bo-n-init-iter", value<std::string>(), "The number of initialization function calls.")
-			("bo-verbose-level", value<std::string>(), "Verbose level for bayesian optimization")
-			("bo-epsilon", value<std::string>(), "Epsilon-greedy strategy parameter");
+			("bo-verbose-level", value<std::string>(), "Verbose level for Bayesian optimization")
+			("bo-epsilon", value<std::string>(), "Epsilon-greedy strategy parameter")
+			("bo-crit-name", value<std::string>(), "Exploration/Exploitation criteria function for Bayesian optimization")
+			("bo-kernel-name", value<std::string>(), "Kernel function name for Bayesian optimization")
+			("bo-surrogate-name", value<std::string>(), "Name of the hierarchical surrogate function used in Bayesian optimization")
+			("bo-score-type", value<std::string>(), "Score function for learning method of Kernal hyperparameters")
+			("bo-mean-type", value<std::string>(), "Parametric mean functions");
+			//("bo-kernel-mean", value<std::string>(), "Kernel function mean for Bayesian optimization")
+			//("bo-kernel-std", value<std::string>(), "Kernel function standard deviation");
 		return desc;
 	}
 
