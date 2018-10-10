@@ -10,7 +10,7 @@ Using CMake and Make without Python support
 ```bash
 $ mkdir build && cd build
 $ cmake .. -DXACC_DIR=$HOME/.xacc (or wherever you installed XACC)
-$ make install 
+$ make install
 ```
 or with Python support
 ```bash
